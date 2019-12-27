@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WeatherKotlinApp</string>
+    <string name="enter_name">Enter your fucking name.</string>
+    <string name="txt_screen_3">3-й экран</string>
+    <string name="txt_screen_2">2-й экран</string>
+    <string name="txt_screen_1">1-й экран</string>
+</resources>
