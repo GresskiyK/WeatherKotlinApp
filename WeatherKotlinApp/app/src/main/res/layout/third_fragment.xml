@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_blue">
+    android:background="@drawable/gradient">
 
     <TextView
         android:id="@+id/titleOfFirstFragment"
@@ -14,7 +14,6 @@
         android:text="Locations"
         android:gravity="center"
         android:textSize="30dp"
-        android:textStyle="bold"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

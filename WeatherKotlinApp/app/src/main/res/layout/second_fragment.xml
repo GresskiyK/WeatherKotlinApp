@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/light_blue">
+    android:background="@drawable/gradient">
 
 
     <TextView
@@ -38,10 +38,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="350dp"
+        android:fontFamily="sans-serif-light"
         android:text="NIGHT"
         android:textAlignment="textEnd"
-        android:textSize="30dp"
         android:textColor="@color/white"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/view1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,10 +64,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginBottom="350dp"
+        android:fontFamily="sans-serif-light"
         android:text="CLOUDY"
         android:textAlignment="textStart"
-        android:textSize="30dp"
         android:textColor="@color/white"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -76,7 +78,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="380dp"
-        android:textStyle="bold"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,10 +97,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
             android:text="HUMIDITY"
             android:textAlignment="textEnd"
-            android:textSize="30dp"
             android:textColor="@color/white"
+            android:textSize="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -109,9 +111,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="sans-serif-light"
             android:text="12%"
-            android:textSize="25dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="25dp" />
     </LinearLayout>
 
     <View
@@ -140,17 +143,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-light"
             android:text="WIND"
-            android:textSize="30dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="30dp" />
 
         <TextView
             android:id="@+id/textViewWind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-light"
             android:text=" 12 K/M"
-            android:textSize="25dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="25dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,6 @@
     </style>
     <style name="CornersForCardview">
         <item name="cardCornerRadius">20dp</item>
-
     </style>
     <style name="CornersForView">
         <item name="android:background">@drawable/view_border</item>

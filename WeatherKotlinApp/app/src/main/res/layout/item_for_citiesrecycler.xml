@@ -27,7 +27,6 @@
             android:textAlignment="textStart"
             android:textColor="@color/white"
             android:textSize="30dp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,14 +36,13 @@
             android:id="@+id/degreesOfCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="90dp"
+            android:layout_marginEnd="110dp"
             android:text="12\u00B0"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
             android:textSize="55sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -52,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="17dp"
-            android:src="@drawable/clouds_icon"
+            android:src="@drawable/clouds_with_rain_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
