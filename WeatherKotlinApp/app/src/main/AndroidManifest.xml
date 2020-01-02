@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".TestActivity"></activity>
+        <activity android:name=".TestAcivity" />
         <activity android:name=".MainScreen" />
         <activity android:name=".MainActivity">
             <intent-filter>

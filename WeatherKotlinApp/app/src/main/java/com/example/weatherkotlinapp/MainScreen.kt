@@ -30,7 +30,6 @@ class MainScreen : AppCompatActivity() {
         val fragmentAdapter = PagerAdapter(supportFragmentManager)
         vp.adapter = fragmentAdapter
         vp.currentItem = 1
-        //tabs.setupWithViewPager(vp)
         Dots_Layout=findViewById(R.id.dotsLayout)
         createDots()
         setCurrentIndicator(1)

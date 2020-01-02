@@ -24,13 +24,11 @@ class MainActivity : AppCompatActivity() {
 
         word.setSpan(
             ForegroundColorSpan(Color.RED),
-            19,
+            10,
             word.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-
         textView.text = word
-
     }
 
     fun continueWithName(view: View) {

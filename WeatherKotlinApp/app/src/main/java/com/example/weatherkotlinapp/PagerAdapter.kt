@@ -10,6 +10,7 @@ import android.text.SpannableString
 import android.graphics.drawable.Drawable
 import android.widget.LinearLayout
 import android.R
+import android.view.View
 import android.widget.RelativeLayout
 
 
@@ -30,6 +31,7 @@ class PagerAdapter(fm:FragmentManager): FragmentPagerAdapter(fm) {
             }
             2 -> {
                 ThirdFragment()
+
             }
             else -> {
                 return SecondFragment()

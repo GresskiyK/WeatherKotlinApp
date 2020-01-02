@@ -5,9 +5,17 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/black</item>
+        <item name="android:colorPrimaryDark">@color/colorForBar</item>
     </style>
     <style name="ButtonStyle">
         <item name="android:background">@drawable/button_style</item>
+    </style>
+    <style name="CornersForCardview">
+        <item name="cardCornerRadius">20dp</item>
+
+    </style>
+    <style name="CornersForView">
+        <item name="android:background">@drawable/view_border</item>
     </style>
 
 
