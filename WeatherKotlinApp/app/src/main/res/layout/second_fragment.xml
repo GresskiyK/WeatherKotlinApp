@@ -36,13 +36,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
         android:layout_marginBottom="350dp"
+        android:layout_marginRight="15dp"
         android:fontFamily="sans-serif-light"
         android:text="NIGHT"
-        android:textAlignment="textEnd"
+        android:gravity="right"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="23dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/view1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +51,6 @@
         android:id="@+id/view1"
         android:layout_width="1dp"
         android:layout_height="40dp"
-
         android:layout_marginBottom="350dp"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,15 +59,16 @@
         app:layout_constraintTop_toTopOf="parent"></View>
 
     <TextView
+        android:id="@+id/textViewWeatherDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:layout_marginBottom="350dp"
+        android:layout_marginLeft="15dp"
         android:fontFamily="sans-serif-light"
+        android:gravity="left"
         android:text="CLOUDY"
-        android:textAlignment="textStart"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="23dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -77,11 +77,13 @@
         android:id="@+id/textViewDegrees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="380dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginBottom="130dp"
         android:textColor="@color/white"
+        android:textSize="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayoutHumidity"

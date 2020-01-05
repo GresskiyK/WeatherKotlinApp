@@ -13,7 +13,7 @@
    <androidx.constraintlayout.widget.ConstraintLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:background="@drawable/content_in_cardview">
+       android:background="@drawable/corners_for_content_in_cardview">
 
        <TextView
            android:id="@+id/dayOfCard"
