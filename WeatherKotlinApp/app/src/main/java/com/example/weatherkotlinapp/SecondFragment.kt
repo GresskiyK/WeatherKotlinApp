@@ -23,6 +23,12 @@ import kotlin.math.roundToInt
 
 class SecondFragment : Fragment(){
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var textViewTitle: TextView
+    private lateinit var textViewDegrees: TextView
+    private lateinit var textViewHumidity: TextView
+    private lateinit var textViewWind: TextView
+    private lateinit var textViewWeatherDescription: TextView
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,34 +36,36 @@ class SecondFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val view=inflater.inflate(R.layout.second_fragment, container, false)
-        val textViewDegrees: TextView = view.findViewById(R.id.textViewDegrees)
-        val textViewTitle: TextView=view.findViewById(R.id.titleOfSecondFragment)
-        val textViewWeatherDescription:TextView=view.findViewById(R.id.textViewWeatherDescription)
-        val textViewHumidity:TextView=view.findViewById(R.id.textViewHumidity)
+        textViewDegrees = view.findViewById(R.id.textViewDegrees)
+        textViewTitle=view.findViewById(R.id.titleOfSecondFragment)
+        textViewWeatherDescription=view.findViewById(R.id.textViewWeatherDescription)
+        textViewHumidity=view.findViewById(R.id.textViewHumidity)
         textViewHumidity.setCompoundDrawablesWithIntrinsicBounds(R.drawable.humidity_icon,0,0,0)
-        val textViewWind:TextView=view.findViewById(R.id.textViewWind)
+        textViewWind=view.findViewById(R.id.textViewWind)
         textViewWind.setCompoundDrawablesWithIntrinsicBounds(R.drawable.wind_icon,0,0,0)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.activity!!)
-        obtieneLocalizacion()
-        getData(textViewTitle,textViewWeatherDescription,textViewHumidity,textViewWind,textViewDegrees)
+        if(this.activity!=null){
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.activity!!)
+        }
+        getLocation()
         return view
     }
     companion object {
         var retrofit=RetrofitClass.getRetrofit()
         var AppId = "b6907d289e10d714a6e88b30761fae22"
-        var lat:String="53"
-        var lon:String="27"
+        var lat:String=""
+        var lon:String=""
     }
     @SuppressLint("MissingPermission")
-    private fun obtieneLocalizacion(){
+    private fun getLocation(){
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
-                textViewDegrees.text= location?.latitude!!.toString()
-                textViewHumidity.text = location?.longitude.toString()
+                lat= location?.latitude!!.toString()
+                lon = location.longitude.toString()
+                getData()
             }
     }
 
-    fun getData(textViewTitle:TextView,textViewWeatherDescription:TextView,textViewHumidity: TextView,textViewWind: TextView,textViewDegrees: TextView){
+    private fun getData(){
         val queryForData = retrofit?.create(QueryForAPI::class.java)
         val call = queryForData?.getCurrentWeatherData(lat,lon,AppId)
         call?.enqueue(object : Callback<WeatherResponse> {
@@ -65,9 +73,9 @@ class SecondFragment : Fragment(){
                 val weatherResponse=response.body()
                 textViewTitle.text=weatherResponse?.name
                 textViewWeatherDescription.text=weatherResponse?.weather!![0].description?.toUpperCase()
-                //textViewHumidity.text=(weatherResponse?.main?.humidity!!).roundToInt().toString()+"%"
-                //textViewDegrees.text= (weatherResponse?.main?.temp!!).roundToInt().toString()+"°"
-                textViewWind.text=weatherResponse?.wind?.speed.toString()+"K/M"
+                textViewHumidity.text=" ${(weatherResponse?.main?.humidity!!).roundToInt()}%"
+                textViewDegrees.text= "${(weatherResponse?.main?.temp!!).roundToInt()}°"
+                textViewWind.text=" ${weatherResponse?.wind?.speed} K/M"
                 Log.i("tager", "post submitted to API." + (weatherResponse?.name))
             }
 
