@@ -14,12 +14,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:textColor="@color/white"
-        android:text="AMSTERDAM"
         android:textSize="45dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="AMSTERDAM" />
 
     <View
         android:id="@+id/viewUnderTitle"
@@ -37,42 +37,48 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="350dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-light"
         android:gravity="right"
         android:text="NIGHT"
         android:textColor="@color/white"
-        android:textSize="23dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewWeatherDescription"
         app:layout_constraintEnd_toStartOf="@+id/view1"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textViewWeatherDescription" />
 
     <View
         android:id="@+id/view1"
         android:layout_width="1dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="350dp"
         android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDegrees"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></View>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.90999997"></View>
 
     <TextView
         android:id="@+id/textViewWeatherDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="350dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="sans-serif-light"
-        android:gravity="left"
-        android:text="CLOUDY"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:paddingHorizontal="0dp"
+        android:textAlignment="textStart"
         android:textColor="@color/white"
-        android:textSize="23dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/view1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/view1"
+        tools:text="BROKEN CLOUDS" />
 
     <TextView
         android:id="@+id/textViewDegrees"
@@ -115,9 +121,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="sans-serif-light"
-            android:text="12%"
             android:textColor="@color/white"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            tools:text="12%" />
     </LinearLayout>
 
     <View
@@ -157,8 +163,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif-light"
-            android:text=" 12 K/M"
             android:textColor="@color/white"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            tools:text=" 12 K/M" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
