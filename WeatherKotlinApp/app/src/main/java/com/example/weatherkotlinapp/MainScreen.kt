@@ -19,9 +19,6 @@ import java.nio.InvalidMarkException
 class MainScreen : AppCompatActivity() {
 
     private lateinit var Dots_Layout:LinearLayout
-    lateinit var dots:Array<ImageView>
-
-
     private var layouts= arrayOf(R.layout.first_fragment,R.layout.second_fragment,R.layout.third_fragment)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,10 +87,4 @@ class MainScreen : AppCompatActivity() {
             }
         }
     }
-
-//    private fun setupTabIcons() {
-//        tabs.getTabAt(0)?.setIcon(tabIcons[0])
-//        tabs.getTabAt(1)?.setIcon(tabIcons[1])
-//        tabs.getTabAt(2)?.setIcon(tabIcons[2])
-//    }
 }

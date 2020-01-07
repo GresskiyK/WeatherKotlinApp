@@ -42,23 +42,4 @@ class PagerAdapter(fm:FragmentManager): FragmentPagerAdapter(fm) {
     override fun getCount(): Int {
         return 3
     }
-
-
-    override fun getPageTitle(position: Int): CharSequence? {
-//        return when (position) {
-//            0 -> {
-//                ""
-//            }
-//            1 -> {
-//                "Current Weather"
-//            }
-//            2 -> {
-//                "Third"
-//            }
-//            else -> {
-//                return "Default"
-//            }
-//        }
-        return null
-    }
 }

@@ -71,12 +71,11 @@ class SecondFragment : Fragment(){
         call?.enqueue(object : Callback<WeatherResponse> {
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
                 val weatherResponse=response.body()
-                textViewTitle.text=weatherResponse?.name
+                textViewTitle.text=weatherResponse?.name?.toUpperCase()
                 textViewWeatherDescription.text=weatherResponse?.weather!![0].description?.toUpperCase()
-                textViewHumidity.text=" ${(weatherResponse?.main?.humidity!!).roundToInt()}%"
+                textViewHumidity.text="${(weatherResponse?.main?.humidity!!).roundToInt()}%"
                 textViewDegrees.text= "${(weatherResponse?.main?.temp!!).roundToInt()}°"
                 textViewWind.text=" ${weatherResponse?.wind?.speed} K/M"
-                Log.i("tager", "post submitted to API." + (weatherResponse?.name))
             }
 
             override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
