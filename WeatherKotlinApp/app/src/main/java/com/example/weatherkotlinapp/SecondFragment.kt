@@ -1,6 +1,7 @@
 package com.example.weatherkotlinapp
 
 import android.annotation.SuppressLint
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -17,12 +18,15 @@ import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 
 
 class SecondFragment : Fragment(){
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var geocoder: Geocoder
     private lateinit var textViewTitle: TextView
     private lateinit var textViewDegrees: TextView
     private lateinit var textViewHumidity: TextView
@@ -56,13 +60,21 @@ class SecondFragment : Fragment(){
         var lon:String=""
     }
     @SuppressLint("MissingPermission")
-    private fun getLocation(){
+    fun getLocation(){
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
                 lat= location?.latitude!!.toString()
                 lon = location.longitude.toString()
+                getCity(location.latitude,location.longitude)
                 getData()
             }
+    }
+
+    private fun getCity(lat:Double,lon:Double){
+        geocoder= Geocoder(context, Locale.getDefault())
+        val adresses=geocoder.getFromLocation(lat,lon,1)
+        val city= adresses[0].locality
+        textViewTitle.text=city
     }
 
     private fun getData(){
@@ -71,7 +83,6 @@ class SecondFragment : Fragment(){
         call?.enqueue(object : Callback<WeatherResponse> {
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
                 val weatherResponse=response.body()
-                textViewTitle.text=weatherResponse?.name?.toUpperCase()
                 textViewWeatherDescription.text=weatherResponse?.weather!![0].description?.toUpperCase()
                 textViewHumidity.text="${(weatherResponse?.main?.humidity!!).roundToInt()}%"
                 textViewDegrees.text= "${(weatherResponse?.main?.temp!!).roundToInt()}°"

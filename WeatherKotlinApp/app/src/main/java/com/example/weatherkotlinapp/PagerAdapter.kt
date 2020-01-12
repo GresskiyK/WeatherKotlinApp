@@ -3,15 +3,6 @@ package com.example.weatherkotlinapp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.fragment.app.FragmentStatePagerAdapter
-import android.text.Spannable
-import android.text.style.ImageSpan
-import android.text.SpannableString
-import android.graphics.drawable.Drawable
-import android.widget.LinearLayout
-import android.R
-import android.view.View
-import android.widget.RelativeLayout
 
 
 

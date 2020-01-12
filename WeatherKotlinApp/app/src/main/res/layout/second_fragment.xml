@@ -42,7 +42,7 @@
         android:gravity="right"
         android:text="NIGHT"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewWeatherDescription"
         app:layout_constraintEnd_toStartOf="@+id/view1"
         app:layout_constraintHorizontal_bias="1.0"
@@ -72,13 +72,14 @@
         android:paddingHorizontal="0dp"
         android:textAlignment="textStart"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/view1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/view1"
         app:layout_constraintTop_toTopOf="@+id/view1"
-        tools:text="BROKEN CLOUDS" />
+        tools:text="BROKEN CLOUDS"
+        tools:ignore="RtlCompat" />
 
     <TextView
         android:id="@+id/textViewDegrees"
