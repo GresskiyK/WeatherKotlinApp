@@ -2,6 +2,7 @@ package com.example.weatherkotlinapp
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface QueryForAPI {
@@ -11,11 +12,12 @@ interface QueryForAPI {
         @Query("lon") lon:String,
         @Query("appid") app_id: String
     ): Call<WeatherResponse>
-    @GET("data/2.5/forecast/daily?")
-    fun getWeatherForWeek(
-        @Query("lat")lat:String,
-        @Query("lon")lon:String,
-        @Query("cnt")cnt:String,
-        @Query("appid")appid:String
-    ):Call<WeatherResponse>
+    @GET("/api/location/search/?")
+    fun getWoeid(
+        @Query("lattlong") lattlong: String
+    ): Call<List<IdOfCity>>
+    @GET("/api/location/{woeid}/")
+    fun getWeather(
+        @Path("woeid") id:String
+    ): Call<WeatherWeekResponse>
 }

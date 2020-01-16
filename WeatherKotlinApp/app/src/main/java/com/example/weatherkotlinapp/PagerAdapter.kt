@@ -9,12 +9,9 @@ import androidx.fragment.app.FragmentPagerAdapter
 
 class PagerAdapter(fm:FragmentManager): FragmentPagerAdapter(fm) {
 
-    private val fragmentList: MutableList<Fragment> = ArrayList()
-    private val titleList: MutableList<Fragment> = ArrayList()
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-
                 FirstFragment()
             }
             1 -> {
@@ -22,7 +19,6 @@ class PagerAdapter(fm:FragmentManager): FragmentPagerAdapter(fm) {
             }
             2 -> {
                 ThirdFragment()
-
             }
             else -> {
                 return SecondFragment()

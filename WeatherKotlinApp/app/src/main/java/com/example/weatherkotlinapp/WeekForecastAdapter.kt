@@ -3,6 +3,7 @@ package com.example.weatherkotlinapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
@@ -10,8 +11,6 @@ import java.util.Calendar.DATE
 import java.util.Calendar.getInstance
 
 internal class WeekForecastAdapter(private val listofItems: List<ItemOfWeekRecycler>) : RecyclerView.Adapter<WeekForecastAdapter.ViewHolder>() {
-
-    private lateinit var calendar:Calendar
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeekForecastAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_for_weekrecycler, parent, false)
@@ -30,9 +29,17 @@ internal class WeekForecastAdapter(private val listofItems: List<ItemOfWeekRecyc
         private val dayOfWeek: TextView = itemView.findViewById(R.id.dayOfCard)
         private val maxDegrees:TextView=itemView.findViewById(R.id.maxDegrees)
         private val minDegrees:TextView=itemView.findViewById(R.id.minDegrees)
+        private val icon:ImageView=itemView.findViewById(R.id.iconOfWeather)
         fun bindItems(items: ItemOfWeekRecycler) {
-            calendar= getInstance()
-            dayOfWeek.text = calendar.get(Calendar.DAY_OF_MONTH).toString()
+
+            when(items.iconType){
+                "hc" ->icon.setImageResource(R.drawable.clouds_icon)
+                "hr"-> icon.setImageResource(R.drawable.clouds_with_rain_icon)
+                else->{
+                    icon.setImageResource(R.drawable.default_dots)
+                }
+            }
+            dayOfWeek.text = items.date.substringAfterLast("-")
             minDegrees.text=items.minDegrees
             maxDegrees.text=".."+items.maxDegrees+"\u00B0"
         }

@@ -47,10 +47,8 @@ class SecondFragment : Fragment(){
         textViewHumidity.setCompoundDrawablesWithIntrinsicBounds(R.drawable.humidity_icon,0,0,0)
         textViewWind=view.findViewById(R.id.textViewWind)
         textViewWind.setCompoundDrawablesWithIntrinsicBounds(R.drawable.wind_icon,0,0,0)
-        if(this.activity!=null){
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.activity!!)
-        }
-        getLocation()
+        getCity(lat.toDouble(),lon.toDouble())
+        getData()
         return view
     }
     companion object {
@@ -58,16 +56,6 @@ class SecondFragment : Fragment(){
         var AppId = "b6907d289e10d714a6e88b30761fae22"
         var lat:String=""
         var lon:String=""
-    }
-    @SuppressLint("MissingPermission")
-    fun getLocation(){
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location: Location? ->
-                lat= location?.latitude!!.toString()
-                lon = location.longitude.toString()
-                getCity(location.latitude,location.longitude)
-                getData()
-            }
     }
 
     private fun getCity(lat:Double,lon:Double){
@@ -84,9 +72,9 @@ class SecondFragment : Fragment(){
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
                 val weatherResponse=response.body()
                 textViewWeatherDescription.text=weatherResponse?.weather!![0].description?.toUpperCase()
-                textViewHumidity.text="${(weatherResponse?.main?.humidity!!).roundToInt()}%"
-                textViewDegrees.text= "${(weatherResponse?.main?.temp!!).roundToInt()}°"
-                textViewWind.text=" ${weatherResponse?.wind?.speed} K/M"
+                textViewHumidity.text="${(weatherResponse.main?.humidity!!).roundToInt()}%"
+                textViewDegrees.text= "${(weatherResponse.main?.temp!!).roundToInt()}"
+                textViewWind.text=" ${weatherResponse.wind?.speed} M/S"
             }
 
             override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {

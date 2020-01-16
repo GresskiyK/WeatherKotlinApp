@@ -85,13 +85,15 @@
         android:id="@+id/textViewDegrees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="184dp"
         android:layout_marginBottom="130dp"
+        android:gravity="right"
         android:textColor="@color/white"
         android:textSize="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="-3" />
 
     <LinearLayout
         android:id="@+id/linearLayoutHumidity"
@@ -168,4 +170,16 @@
             android:textSize="25dp"
             tools:text=" 12 K/M" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="130dp"
+        android:text="°"
+        android:textColor="@color/white"
+        android:textSize="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewDegrees"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
