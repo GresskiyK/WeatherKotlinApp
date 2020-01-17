@@ -18,6 +18,7 @@ import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
@@ -25,13 +26,13 @@ import kotlin.math.roundToInt
 
 
 class SecondFragment : Fragment(){
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var geocoder: Geocoder
     private lateinit var textViewTitle: TextView
     private lateinit var textViewDegrees: TextView
     private lateinit var textViewHumidity: TextView
     private lateinit var textViewWind: TextView
     private lateinit var textViewWeatherDescription: TextView
+    private lateinit var textViewTimeOfDay: TextView
 
 
     override fun onCreateView(
@@ -47,8 +48,10 @@ class SecondFragment : Fragment(){
         textViewHumidity.setCompoundDrawablesWithIntrinsicBounds(R.drawable.humidity_icon,0,0,0)
         textViewWind=view.findViewById(R.id.textViewWind)
         textViewWind.setCompoundDrawablesWithIntrinsicBounds(R.drawable.wind_icon,0,0,0)
+        textViewTimeOfDay=view.findViewById(R.id.textViewTimeOfDay)
         getCity(lat.toDouble(),lon.toDouble())
         getData()
+        setTimeDescription()
         return view
     }
     companion object {
@@ -56,6 +59,16 @@ class SecondFragment : Fragment(){
         var AppId = "b6907d289e10d714a6e88b30761fae22"
         var lat:String=""
         var lon:String=""
+    }
+
+    private fun setTimeDescription(){
+        var data= SimpleDateFormat("HH", Locale.getDefault())
+        when (data.format(Date()).toInt()) {
+            in 23..4 -> textViewTimeOfDay.text="NIGHT"
+            in 4..12 -> textViewTimeOfDay.text="MORNING"
+            in 12..17 -> textViewTimeOfDay.text="AFTERNOON"
+            in 17..23 -> textViewTimeOfDay.text="EVENING"
+        }
     }
 
     private fun getCity(lat:Double,lon:Double){

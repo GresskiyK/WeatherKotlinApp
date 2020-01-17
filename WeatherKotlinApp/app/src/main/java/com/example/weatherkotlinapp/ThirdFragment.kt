@@ -24,11 +24,10 @@ class ThirdFragment:Fragment() {
             MyItem("Paris", "-1"),
             MyItem("San Francisco", "2")
         )
-
         val myAdapter = CountriesWeatherAdapter(items)
-        val rvTest=view.findViewById(R.id.rvForCities) as RecyclerView
-        rvTest.layoutManager= LinearLayoutManager(activity)
-        rvTest.adapter=myAdapter
+        val rv=view.findViewById(R.id.rvForCities) as RecyclerView
+        rv.layoutManager= LinearLayoutManager(activity)
+        rv.adapter=myAdapter
 
         return view
     }

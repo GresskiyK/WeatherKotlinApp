@@ -35,6 +35,14 @@ internal class WeekForecastAdapter(private val listofItems: List<ItemOfWeekRecyc
             when(items.iconType){
                 "hc" ->icon.setImageResource(R.drawable.clouds_icon)
                 "hr"-> icon.setImageResource(R.drawable.clouds_with_rain_icon)
+                "c"->icon.setImageResource(R.drawable.sun_icon)
+                "sn"->icon.setImageResource(R.drawable.snow_icon)
+                "lc"->icon.setImageResource(R.drawable.light_cloud_icon)
+                "s"->icon.setImageResource(R.drawable.showers_icons)
+                "lr"->icon.setImageResource(R.drawable.light_rain_icon)
+                "t"->icon.setImageResource(R.drawable.lightning_rain_icon)
+                "h"->icon.setImageResource(R.drawable.hail_icon)
+                "sl"->icon.setImageResource(R.drawable.snow_with_rain_icon)
                 else->{
                     icon.setImageResource(R.drawable.default_dots)
                 }

@@ -35,7 +35,7 @@ class FirstFragment : Fragment() {
         val rvTest=view.findViewById(R.id.rvWeekForecast) as RecyclerView
         rvTest.layoutManager= LinearLayoutManager(activity)
         rvTest.adapter=myAdapter
-        getWoeidOfCity()
+        //getWoeidOfCity()
         return view
     }
     private fun getWoeidOfCity() {
