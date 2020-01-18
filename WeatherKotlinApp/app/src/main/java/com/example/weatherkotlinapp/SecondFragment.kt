@@ -1,8 +1,6 @@
 package com.example.weatherkotlinapp
 
-import android.annotation.SuppressLint
 import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,17 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.second_fragment.*
-import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 
@@ -62,19 +54,19 @@ class SecondFragment : Fragment(){
     }
 
     private fun setTimeDescription(){
-        var data= SimpleDateFormat("HH", Locale.getDefault())
+        val data= SimpleDateFormat("HH", Locale.getDefault())
         when (data.format(Date()).toInt()) {
-            in 23..4 -> textViewTimeOfDay.text="NIGHT"
-            in 4..12 -> textViewTimeOfDay.text="MORNING"
-            in 12..17 -> textViewTimeOfDay.text="AFTERNOON"
-            in 17..23 -> textViewTimeOfDay.text="EVENING"
+            in 23..3 -> textViewTimeOfDay.text="NIGHT"
+            in 4..11 -> textViewTimeOfDay.text="MORNING"
+            in 12..16 -> textViewTimeOfDay.text="AFTERNOON"
+            in 17..22 -> textViewTimeOfDay.text="EVENING"
         }
     }
 
     private fun getCity(lat:Double,lon:Double){
         geocoder= Geocoder(context, Locale.getDefault())
-        val adresses=geocoder.getFromLocation(lat,lon,1)
-        val city= adresses[0].locality
+        val address=geocoder.getFromLocation(lat,lon,1)
+        val city= address[0].locality
         textViewTitle.text=city
     }
 
@@ -89,7 +81,6 @@ class SecondFragment : Fragment(){
                 textViewDegrees.text= "${(weatherResponse.main?.temp!!).roundToInt()}"
                 textViewWind.text=" ${weatherResponse.wind?.speed} M/S"
             }
-
             override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
                 Log.i("error",t.message)
             }

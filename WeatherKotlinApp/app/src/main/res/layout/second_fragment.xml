@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:background="@drawable/gradient">
 
-
     <TextView
         android:id="@+id/titleOfSecondFragment"
         android:layout_width="wrap_content"
@@ -39,7 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:fontFamily="sans-serif-light"
-        android:gravity="right"
         android:text="NIGHT"
         android:textColor="@color/white"
         android:textSize="28sp"
@@ -85,15 +83,16 @@
         android:id="@+id/textViewDegrees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="130dp"
-        android:gravity="right"
+        android:textAlignment="viewEnd"
         android:textColor="@color/white"
         android:textSize="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="-3" />
+        app:layout_constraintVertical_bias="0.38"
+        tools:text="2" />
 
     <LinearLayout
         android:id="@+id/linearLayoutHumidity"
@@ -168,18 +167,20 @@
             android:fontFamily="sans-serif-light"
             android:textColor="@color/white"
             android:textSize="25dp"
-            tools:text=" 12 K/M" />
+            tools:text="12 K/M" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="130dp"
         android:text="°"
         android:textColor="@color/white"
         android:textSize="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewDegrees"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6246"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.38" />
 </androidx.constraintlayout.widget.ConstraintLayout>

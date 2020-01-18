@@ -2,10 +2,12 @@ package com.example.weatherkotlinapp
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.DialogInterface
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -87,7 +89,6 @@ class MainScreen : AppCompatActivity() {
 
         val service = retrofit.create(QueryForAPI::class.java)
         val call = service.getWoeid(lattlong)
-        Log.i("asd", "asdafs")
         call.enqueue(object : Callback<List<IdOfCity>> {
             override fun onResponse(call: Call<List<IdOfCity>>, response: Response<List<IdOfCity>>) {
                 var weatherResponse:List<IdOfCity> = response.body()!!
@@ -100,6 +101,11 @@ class MainScreen : AppCompatActivity() {
         })
 
     }
+    private fun checkInternet(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -111,7 +117,7 @@ class MainScreen : AppCompatActivity() {
             0 -> {
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     val builder = AlertDialog.Builder(this)
-                    builder.setTitle("Ops!")
+                    builder.setTitle("Notification")
                         .setMessage("Please accept location permission to continue.")
                         .setCancelable(false)
                         .setNegativeButton(
@@ -119,7 +125,18 @@ class MainScreen : AppCompatActivity() {
                         ) { _, _ -> this.finish() }
                     val alert = builder.create()
                     alert.show()
-                } else {
+                } else if(!checkInternet(this)){
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("Internet connection")
+                        .setMessage("Please check Internet connection.")
+                        .setCancelable(false)
+                        .setNegativeButton(
+                            "ОК"
+                        ) { _, _ -> this.finish() }
+                    val alert = builder.create()
+                    alert.show()
+                }
+                else{
                     getLocation()
                 }
             }
@@ -131,8 +148,8 @@ class MainScreen : AppCompatActivity() {
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
                 lattlong = location?.latitude!!.toString()+","+location.longitude.toString()
-                SecondFragment.lat=location?.latitude.toString()
-                SecondFragment.lon=location?.longitude.toString()
+                SecondFragment.lat=location.latitude.toString()
+                SecondFragment.lon= location.longitude.toString()
                 setupOfViewPager()
                 getWoeidOfCity()
             }
