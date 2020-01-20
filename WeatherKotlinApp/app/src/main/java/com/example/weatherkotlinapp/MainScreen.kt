@@ -42,10 +42,12 @@ import kotlin.math.roundToInt
 class MainScreen : AppCompatActivity() {
 
     private lateinit var dotsLayout:LinearLayout
+    //val rvTest:RecyclerView=findViewById(R.id.rvWeekForecast)
     private var layouts= arrayOf(R.layout.first_fragment,R.layout.second_fragment,R.layout.third_fragment)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
@@ -147,11 +149,11 @@ class MainScreen : AppCompatActivity() {
         val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
-                lattlong = location?.latitude!!.toString()+","+location.longitude.toString()
+                FirstFragment.lattlong = location?.latitude!!.toString()+","+location.longitude.toString()
                 SecondFragment.lat=location.latitude.toString()
                 SecondFragment.lon= location.longitude.toString()
                 setupOfViewPager()
-                getWoeidOfCity()
+                //getWoeidOfCity()
             }
     }
 
