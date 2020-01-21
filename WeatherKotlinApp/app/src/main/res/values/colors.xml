@@ -6,11 +6,12 @@
     <color name="black">#030000</color>
     <color name="white">#ffffff</color>
     <color name="grey">#575757</color>
+    <color name="clearBar">#FF8000</color>
+    <color name="snowBar">#C9D2FF</color>
+    <color name="darkBlue">#4551EA</color>
+    <color name="rainBar">#1C41F3</color>
+    <color name="cloudBar">#748BFF</color>
     <color name="light_blue">#2182FF</color>
-    <color name="colorForBar">#72AFFF</color>
-    <color name="dark_blue">#1C71DF</color>
-    <color name="light_green">#89FFB7</color>
-
     <color name="active_dots">#fffafa</color>
     <color name="inactive_dots">#AEAEAE</color>
 

@@ -1,12 +1,14 @@
 package com.example.weatherkotlinapp
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,6 +27,8 @@ class SecondFragment : Fragment(){
     private lateinit var textViewWind: TextView
     private lateinit var textViewWeatherDescription: TextView
     private lateinit var textViewTimeOfDay: TextView
+    private lateinit var constraintLayoutSecondFragment: ConstraintLayout
+    private lateinit var window: Window
 
 
     override fun onCreateView(
@@ -41,7 +45,10 @@ class SecondFragment : Fragment(){
         textViewWind=view.findViewById(R.id.textViewWind)
         textViewWind.setCompoundDrawablesWithIntrinsicBounds(R.drawable.wind_icon,0,0,0)
         textViewTimeOfDay=view.findViewById(R.id.textViewTimeOfDay)
-        getCity(lat.toDouble(),lon.toDouble())
+        constraintLayoutSecondFragment=view.findViewById(R.id.constraintOfSecondFragment)
+        window= activity!!.window
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        getCity(lat.toDouble(),lon.toDouble() )
         getData()
         setTimeDescription()
         return view
@@ -77,6 +84,15 @@ class SecondFragment : Fragment(){
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
                 val weatherResponse=response.body()
                 textViewWeatherDescription.text=weatherResponse?.weather!![0].description?.toUpperCase()
+                when(weatherResponse.weather[0].mainName){
+                    "Clouds"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+                    "Clear"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clear_gradient)
+                    "Mist"-> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+                    "Fog"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+                    "Rain"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.rain_gradient)
+                    else->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.gradient)
+                }
+                Log.i("asd",weatherResponse.weather[0].mainName)
                 textViewHumidity.text="${(weatherResponse.main?.humidity!!).roundToInt()}%"
                 textViewDegrees.text= "${(weatherResponse.main?.temp!!).roundToInt()}"
                 textViewWind.text=" ${weatherResponse.wind?.speed} M/S"
