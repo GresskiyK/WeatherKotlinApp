@@ -1,5 +1,8 @@
-package com.example.weatherkotlinapp
+package com.example.weatherkotlinapp.Queries
 
+import com.example.weatherkotlinapp.WeatherResponse.IdOfCity
+import com.example.weatherkotlinapp.WeatherResponse.WeatherResponse
+import com.example.weatherkotlinapp.WeatherResponse.WeatherWeekResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

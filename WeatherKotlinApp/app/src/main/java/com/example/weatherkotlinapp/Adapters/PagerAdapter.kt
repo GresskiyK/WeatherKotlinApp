@@ -1,10 +1,11 @@
-package com.example.weatherkotlinapp
+package com.example.weatherkotlinapp.Adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-
-
+import com.example.weatherkotlinapp.Fragments.FirstFragment
+import com.example.weatherkotlinapp.Fragments.SecondFragment
+import com.example.weatherkotlinapp.Fragments.ThirdFragment
 
 
 class PagerAdapter(fm:FragmentManager): FragmentPagerAdapter(fm) {

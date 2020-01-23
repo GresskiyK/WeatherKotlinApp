@@ -1,15 +1,18 @@
-package com.example.weatherkotlinapp
+package com.example.weatherkotlinapp.Fragments
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.weatherkotlinapp.Callbacks
+import com.example.weatherkotlinapp.Queries.QueriesForApi
+import com.example.weatherkotlinapp.Queries.QueryForAPI
+import com.example.weatherkotlinapp.R
+import com.example.weatherkotlinapp.RetrofitClass
+import com.example.weatherkotlinapp.WeatherResponse.WeatherResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,13 +51,15 @@ class SecondFragment : Fragment(){
         constraintLayoutSecondFragment=view.findViewById(R.id.constraintOfSecondFragment)
         window= activity!!.window
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        getCity(lat.toDouble(),lon.toDouble() )
-        getData()
+        getCity(
+            lat.toDouble(),
+            lon.toDouble())
+        QueriesForApi().getData(getCallback())
         setTimeDescription()
         return view
     }
     companion object {
-        var retrofit=RetrofitClass.getRetrofit()
+        var retrofit= RetrofitClass.getRetrofit()
         var AppId = "b6907d289e10d714a6e88b30761fae22"
         var lat:String=""
         var lon:String=""
@@ -77,29 +82,22 @@ class SecondFragment : Fragment(){
         textViewTitle.text=city
     }
 
-    private fun getData(){
-        val queryForData = retrofit?.create(QueryForAPI::class.java)
-        val call = queryForData?.getCurrentWeatherData(lat,lon,AppId)
-        call?.enqueue(object : Callback<WeatherResponse> {
-            override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
-                val weatherResponse=response.body()
-                textViewWeatherDescription.text=weatherResponse?.weather!![0].description?.toUpperCase()
-                when(weatherResponse.weather[0].mainName){
-                    "Clouds"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-                    "Clear"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clear_gradient)
-                    "Mist"-> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-                    "Fog"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-                    "Rain"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.rain_gradient)
-                    else->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.gradient)
+    private fun getCallback():Callbacks {
+        return object : Callbacks{
+            override fun onComplete(description:String,mainName:String,humidity:String,degrees:String,wind:String) {
+                textViewWeatherDescription.text=description
+                textViewDegrees.text=degrees
+                textViewHumidity.text=humidity
+                textViewWind.text=wind
+                when(mainName){
+                        "Clouds"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+                        "Clear"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clear_gradient)
+                        "Mist"-> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+                        "Fog"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+                        "Rain"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.rain_gradient)
+                        else->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.gradient)
                 }
-                Log.i("asd",weatherResponse.weather[0].mainName)
-                textViewHumidity.text="${(weatherResponse.main?.humidity!!).roundToInt()}%"
-                textViewDegrees.text= "${(weatherResponse.main?.temp!!).roundToInt()}"
-                textViewWind.text=" ${weatherResponse.wind?.speed} M/S"
             }
-            override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
-                Log.i("error",t.message)
-            }
-        })
+        }
     }
 }

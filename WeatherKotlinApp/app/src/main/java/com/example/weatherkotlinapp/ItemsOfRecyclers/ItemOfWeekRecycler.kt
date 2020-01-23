@@ -1,4 +1,4 @@
-package com.example.weatherkotlinapp
+package com.example.weatherkotlinapp.ItemsOfRecyclers
 
 class ItemOfWeekRecycler(
     val iconType:String,

@@ -1,8 +1,5 @@
-package com.example.weatherkotlinapp
+package com.example.weatherkotlinapp.Fragments
 
-import android.annotation.SuppressLint
-import android.graphics.Color
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,10 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import kotlinx.android.synthetic.main.first_fragment.*
+import com.example.weatherkotlinapp.Adapters.WeekForecastAdapter
+import com.example.weatherkotlinapp.ItemsOfRecyclers.ItemOfWeekRecycler
+import com.example.weatherkotlinapp.Queries.QueryForAPI
+import com.example.weatherkotlinapp.R
+import com.example.weatherkotlinapp.WeatherResponse.IdOfCity
+import com.example.weatherkotlinapp.WeatherResponse.WeatherWeekResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,7 +46,7 @@ class FirstFragment : Fragment() {
         call.enqueue(object : Callback<List<IdOfCity>> {
             override fun onResponse(call: Call<List<IdOfCity>>, response: Response<List<IdOfCity>>) {
                 var weatherResponse:List<IdOfCity> = response.body()!!
-                cityId=weatherResponse[0].id.toString()
+                cityId =weatherResponse[0].id.toString()
                 getFiveDaysWeather()
                 Log.i("tager", "result:" + weatherResponse[0].id)
             }
@@ -70,7 +69,14 @@ class FirstFragment : Fragment() {
 
                 if(flag){
                     for(i in 1..5){
-                        items.add(ItemOfWeekRecycler(weatherResponse?.weatherList?.get(i)?.iconType.toString(), weatherResponse?.weatherList?.get(i)?.date.toString(),(weatherResponse?.weatherList?.get(i)?.minTemp?.roundToInt()).toString(),(weatherResponse?.weatherList?.get(i)?.maxTemp?.roundToInt()).toString()))
+                        items.add(
+                            ItemOfWeekRecycler(
+                                weatherResponse?.weatherList?.get(i)?.iconType.toString(),
+                                weatherResponse?.weatherList?.get(i)?.date.toString(),
+                                (weatherResponse?.weatherList?.get(i)?.minTemp?.roundToInt()).toString(),
+                                (weatherResponse?.weatherList?.get(i)?.maxTemp?.roundToInt()).toString()
+                            )
+                        )
                     }
                     flag=false
                 }

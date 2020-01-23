@@ -1,4 +1,4 @@
-package com.example.weatherkotlinapp
+package com.example.weatherkotlinapp.Adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,18 +6,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import java.util.*
-import java.util.Calendar.DATE
-import java.util.Calendar.getInstance
+import com.example.weatherkotlinapp.ItemsOfRecyclers.ItemOfWeekRecycler
+import com.example.weatherkotlinapp.R
 
 internal class WeekForecastAdapter(private val listofItems: List<ItemOfWeekRecycler>) : RecyclerView.Adapter<WeekForecastAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeekForecastAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_for_weekrecycler, parent, false)
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: WeekForecastAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(listofItems[position])
     }
 
