@@ -5,16 +5,28 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitClass {
 
-    companion object {
-        private lateinit var retrofit: Retrofit
-        val BaseUrl:String="https://openweathermap.org/"
-        fun getRetrofit(): Retrofit? {
-                retrofit = Retrofit.Builder()
-                    .baseUrl(BaseUrl)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-            return retrofit
-
-        }
+    fun retrofitForDaily(): Retrofit {
+        val baseUrl = "https://openweathermap.org/"
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
+
+    fun retrofitForWoeid(): Retrofit {
+        val baseUrl = "https://www.metaweather.com"
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    fun retrofitForWeek(): Retrofit {
+        val baseUrl = "https://www.metaweather.com"
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
 }

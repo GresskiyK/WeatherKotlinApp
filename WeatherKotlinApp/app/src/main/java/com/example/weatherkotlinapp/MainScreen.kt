@@ -37,26 +37,34 @@ import kotlin.math.roundToInt
 
 class MainScreen : AppCompatActivity() {
 
-    private lateinit var dotsLayout:LinearLayout
-    private var layouts= arrayOf(R.layout.first_fragment,R.layout.second_fragment,R.layout.third_fragment)
+    private lateinit var dotsLayout: LinearLayout
+    private var layouts =
+        arrayOf(R.layout.first_fragment, R.layout.second_fragment, R.layout.third_fragment)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
+            != PackageManager.PERMISSION_GRANTED
+        ) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                 0
             )
         }
-        onRequestPermissionsResult(0,arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), intArrayOf(PackageManager.PERMISSION_GRANTED))
+        onRequestPermissionsResult(
+            0,
+            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+            intArrayOf(PackageManager.PERMISSION_GRANTED)
+        )
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     private fun checkInternet(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
     }
@@ -79,7 +87,7 @@ class MainScreen : AppCompatActivity() {
                         ) { _, _ -> this.finish() }
                     val alert = builder.create()
                     alert.show()
-                } else if(!checkInternet(this)){
+                } else if (!checkInternet(this)) {
                     val builder = AlertDialog.Builder(this)
                     builder.setTitle("Internet connection")
                         .setMessage("Please check Internet connection.")
@@ -89,21 +97,20 @@ class MainScreen : AppCompatActivity() {
                         ) { _, _ -> this.finish() }
                     val alert = builder.create()
                     alert.show()
-                }
-                else{
+                } else {
                     QueriesForApi().getLocation(this)
                 }
             }
         }
     }
 
-    fun setupOfViewPager(){
-        val vp=findViewById<ViewPager>(R.id.viewpager)
+    fun setupOfViewPager() {
+        val vp = findViewById<ViewPager>(R.id.viewpager)
         val fragmentAdapter =
             PagerAdapter(supportFragmentManager)
         vp.adapter = fragmentAdapter
         vp.currentItem = 1
-        dotsLayout=findViewById(R.id.dotsLayout)
+        dotsLayout = findViewById(R.id.dotsLayout)
         createDots()
         setCurrentIndicator(1)
         vp?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -111,48 +118,58 @@ class MainScreen : AppCompatActivity() {
             override fun onPageScrollStateChanged(state: Int) {
             }
 
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
 
             }
+
             override fun onPageSelected(position: Int) {
                 setCurrentIndicator(position)
             }
         })
     }
 
-    private fun createDots(){
-        val indicators= arrayOfNulls<ImageView>(layouts.size)
-        val layoutParams:LinearLayout.LayoutParams=LinearLayout.LayoutParams(WRAP_CONTENT,
-            WRAP_CONTENT)
-        layoutParams.setMargins(8,0,8,0)
-        for(i in indicators.indices){
-            indicators[i]= ImageView(applicationContext)
-            indicators[i].apply { this?.setImageDrawable(
-                ContextCompat.getDrawable(
-                applicationContext,R.drawable.default_dots
+    private fun createDots() {
+        val indicators = arrayOfNulls<ImageView>(layouts.size)
+        val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+            WRAP_CONTENT,
+            WRAP_CONTENT
+        )
+        layoutParams.setMargins(8, 0, 8, 0)
+        for (i in indicators.indices) {
+            indicators[i] = ImageView(applicationContext)
+            indicators[i].apply {
+                this?.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext, R.drawable.default_dots
+                    )
                 )
-             )
-                this?.layoutParams=layoutParams
+                this?.layoutParams = layoutParams
             }
             dotsLayout.addView(indicators[i])
         }
 
     }
-    private fun setCurrentIndicator(index:Int){
-        val childCount=dotsLayout.childCount
-        for(i in 0 until childCount){
-            val imageView=dotsLayout.get(i) as ImageView
-            if(i==index){
+
+    private fun setCurrentIndicator(index: Int) {
+        val childCount = dotsLayout.childCount
+        for (i in 0 until childCount) {
+            val imageView = dotsLayout.get(i) as ImageView
+            if (i == index) {
                 imageView.setImageDrawable(
                     ContextCompat.getDrawable(
-                            applicationContext,R.drawable.dots_selected
-                            )
+                        applicationContext, R.drawable.dots_selected
+                    )
                 )
-            }else{
+            } else {
                 imageView.setImageDrawable(
                     ContextCompat.getDrawable(
-                        applicationContext,R.drawable.default_dots
-                    ))
+                        applicationContext, R.drawable.default_dots
+                    )
+                )
             }
         }
     }
