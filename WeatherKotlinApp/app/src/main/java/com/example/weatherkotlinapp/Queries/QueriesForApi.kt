@@ -1,17 +1,11 @@
 package com.example.weatherkotlinapp.Queries
 
-import android.content.Context
-import android.location.Geocoder
 import android.location.Location
 import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weatherkotlinapp.Adapters.WeekForecastAdapter
-import com.example.weatherkotlinapp.Callbacks
-import com.example.weatherkotlinapp.Fragments.FirstFragment
-import com.example.weatherkotlinapp.Fragments.SecondFragment
+import com.example.weatherkotlinapp.Callbacks.Callbacks
 import com.example.weatherkotlinapp.ItemsOfRecyclers.ItemOfWeekRecycler
 import com.example.weatherkotlinapp.MainScreen
-import com.example.weatherkotlinapp.RetrofitClass
+import com.example.weatherkotlinapp.Retrofit.RetrofitClass
 import com.example.weatherkotlinapp.WeatherResponse.IdOfCity
 import com.example.weatherkotlinapp.WeatherResponse.WeatherResponse
 import com.example.weatherkotlinapp.WeatherResponse.WeatherWeekResponse
@@ -20,8 +14,6 @@ import com.google.android.gms.location.LocationServices
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -37,7 +29,7 @@ class QueriesForApi {
     }
 
     fun getData(callback: Callbacks) {
-        val retrofit=RetrofitClass().retrofitForDaily()
+        val retrofit= RetrofitClass().retrofitForDaily()
         val queryForData = retrofit.create(
             QueryForAPI::class.java
         )

@@ -1,4 +1,4 @@
-package com.example.weatherkotlinapp
+package com.example.weatherkotlinapp.Callbacks
 
 import com.example.weatherkotlinapp.ItemsOfRecyclers.ItemOfWeekRecycler
 

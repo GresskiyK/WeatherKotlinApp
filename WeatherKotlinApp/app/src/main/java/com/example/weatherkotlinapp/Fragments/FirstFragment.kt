@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherkotlinapp.Adapters.WeekForecastAdapter
-import com.example.weatherkotlinapp.Callbacks
+import com.example.weatherkotlinapp.Callbacks.Callbacks
 import com.example.weatherkotlinapp.ItemsOfRecyclers.ItemOfWeekRecycler
 import com.example.weatherkotlinapp.Queries.QueriesForApi
 import com.example.weatherkotlinapp.R

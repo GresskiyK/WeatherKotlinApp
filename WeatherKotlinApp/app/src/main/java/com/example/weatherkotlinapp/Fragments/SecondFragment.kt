@@ -6,10 +6,9 @@ import android.view.*
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import com.example.weatherkotlinapp.Callbacks
+import com.example.weatherkotlinapp.Callbacks.Callbacks
 import com.example.weatherkotlinapp.Queries.QueriesForApi
 import com.example.weatherkotlinapp.R
-import com.example.weatherkotlinapp.RetrofitClass
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -87,6 +86,7 @@ class SecondFragment : Fragment() {
                     "Mist" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
                     "Fog" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
                     "Rain" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.rain_gradient)
+                    "Drizzle"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
                     else -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.gradient)
                 }
                 getCity()
