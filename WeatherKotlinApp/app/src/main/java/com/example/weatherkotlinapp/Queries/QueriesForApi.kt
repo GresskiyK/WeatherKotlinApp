@@ -110,7 +110,8 @@ class QueriesForApi {
                                 weatherResponse?.weatherList?.get(i)?.iconType.toString(),
                                 weatherResponse?.weatherList?.get(i)?.date.toString(),
                                 (weatherResponse?.weatherList?.get(i)?.minTemp?.roundToInt()).toString(),
-                                (weatherResponse?.weatherList?.get(i)?.maxTemp?.roundToInt()).toString()
+                                (weatherResponse?.weatherList?.get(i)?.maxTemp?.roundToInt()).toString(),
+                                weatherResponse?.weatherList?.get(i)?.description.toString()
                             )
                         )
                     }

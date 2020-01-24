@@ -11,4 +11,6 @@ class WeatherItem {
     var date: String? =null
     @SerializedName("weather_state_abbr")
     var iconType:String?=null
+    @SerializedName("weather_state_name")
+    var description:String?=null
 }

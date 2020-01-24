@@ -12,7 +12,7 @@
     <color name="rainBar">#1C41F3</color>
     <color name="cloudBar">#748BFF</color>
     <color name="light_blue">#2182FF</color>
-    <color name="active_dots">#fffafa</color>
+    <color name="active_dots">#08C1EE</color>
     <color name="inactive_dots">#AEAEAE</color>
 
 </resources>

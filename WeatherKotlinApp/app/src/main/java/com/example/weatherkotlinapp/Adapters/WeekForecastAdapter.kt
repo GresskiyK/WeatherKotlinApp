@@ -29,6 +29,7 @@ internal class WeekForecastAdapter(private val listofItems: List<ItemOfWeekRecyc
         private val maxDegrees:TextView=itemView.findViewById(R.id.maxDegrees)
         private val minDegrees:TextView=itemView.findViewById(R.id.minDegrees)
         private val icon:ImageView=itemView.findViewById(R.id.iconOfWeather)
+        private val description:TextView=itemView.findViewById(R.id.textViewDescription)
         fun bindItems(items: ItemOfWeekRecycler) {
 
             when(items.iconType){
@@ -46,8 +47,11 @@ internal class WeekForecastAdapter(private val listofItems: List<ItemOfWeekRecyc
                     icon.setImageResource(R.drawable.default_dots)
                 }
             }
-            dayOfWeek.text = items.date.substringAfterLast("-")
+            val strs=items.date.split("-")
+            description.text=items.description
+            dayOfWeek.text = strs[2] +"."+ strs[1]
             minDegrees.text=items.minDegrees
+
             maxDegrees.text=".."+items.maxDegrees+"\u00B0"
         }
 
