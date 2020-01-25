@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherkotlinapp.ItemsOfRecyclers.ItemOfWeekRecycler
 import com.example.weatherkotlinapp.R
@@ -30,19 +31,30 @@ internal class WeekForecastAdapter(private val listofItems: List<ItemOfWeekRecyc
         private val minDegrees:TextView=itemView.findViewById(R.id.minDegrees)
         private val icon:ImageView=itemView.findViewById(R.id.iconOfWeather)
         private val description:TextView=itemView.findViewById(R.id.textViewDescription)
+        private val constraintLayout:ConstraintLayout=itemView.findViewById(R.id.constraintLay)
         fun bindItems(items: ItemOfWeekRecycler) {
 
             when(items.iconType){
-                "hc" ->icon.setImageResource(R.drawable.clouds_icon)
-                "hr"-> icon.setImageResource(R.drawable.clouds_with_rain_icon)
-                "c"->icon.setImageResource(R.drawable.sun_icon)
-                "sn"->icon.setImageResource(R.drawable.snow_icon)
-                "lc"->icon.setImageResource(R.drawable.light_cloud_icon)
-                "s"->icon.setImageResource(R.drawable.showers_icons)
-                "lr"->icon.setImageResource(R.drawable.light_rain_icon)
-                "t"->icon.setImageResource(R.drawable.lightning_rain_icon)
-                "h"->icon.setImageResource(R.drawable.hail_icon)
-                "sl"->icon.setImageResource(R.drawable.snow_with_rain_icon)
+                "hc" ->{icon.setImageResource(R.drawable.clouds_icon)
+                 constraintLayout.setBackgroundResource(R.drawable.item_clouds)}
+                "hr"->{ icon.setImageResource(R.drawable.clouds_with_rain_icon)
+                constraintLayout.setBackgroundResource(R.drawable.item_heavy_rain)}
+                "c"->{icon.setImageResource(R.drawable.sun_icon)
+                constraintLayout.setBackgroundResource(R.drawable.item_clear)}
+                "sn"->{icon.setImageResource(R.drawable.snow_icon)
+                constraintLayout.setBackgroundResource(R.drawable.item_snow)}
+                "lc"->{icon.setImageResource(R.drawable.light_cloud_icon)
+                constraintLayout.setBackgroundResource(R.drawable.item_clouds)}
+                "s"->{icon.setImageResource(R.drawable.showers_icons)
+                constraintLayout.setBackgroundResource(R.drawable.item_heavy_rain)}
+                "lr"->{icon.setImageResource(R.drawable.light_rain_icon)
+                constraintLayout.setBackgroundResource(R.drawable.item_rain)}
+                "t"->{icon.setImageResource(R.drawable.lightning_rain_icon)
+                constraintLayout.setBackgroundResource(R.drawable.item_heavy_rain)}
+                "h"->{icon.setImageResource(R.drawable.hail_icon)
+                constraintLayout.setBackgroundResource(R.drawable.item_snow)}
+                "sl"->{icon.setImageResource(R.drawable.snow_with_rain_icon)
+                constraintLayout.setBackgroundResource(R.drawable.item_rain)}
                 else->{
                     icon.setImageResource(R.drawable.default_dots)
                 }
@@ -52,7 +64,7 @@ internal class WeekForecastAdapter(private val listofItems: List<ItemOfWeekRecyc
             dayOfWeek.text = strs[2] +"."+ strs[1]
             minDegrees.text=items.minDegrees
 
-            maxDegrees.text=".."+items.maxDegrees+"\u00B0"
+            maxDegrees.text=items.maxDegrees+"\u00B0"
         }
 
     }

@@ -86,7 +86,7 @@ class SecondFragment : Fragment() {
                     "Clear" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clear_gradient)
                     "Mist" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
                     "Fog" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-                    "Rain" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.rain_gradient)
+                    "Rain" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.light_rain_gradient)
                     "Drizzle"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
                     else -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.gradient)
                 }

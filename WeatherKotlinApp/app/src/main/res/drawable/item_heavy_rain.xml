@@ -3,12 +3,8 @@
 
     <gradient
         android:angle="90"
-        android:centerColor="#24D2FD"
-        android:endColor="#00CDFF"
-        android:startColor="@color/white"
+        android:endColor="#5195FF"
+        android:startColor="#7EB1FF"
         android:type="linear" />
-
-    <corners
-        android:radius="0dp"/>
 
 </shape>

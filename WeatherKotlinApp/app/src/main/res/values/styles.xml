@@ -7,15 +7,12 @@
         <item name="colorAccent">@color/black</item>
         <item name="android:colorPrimaryDark">@color/white</item>
     </style>
-    <style name="ButtonStyle">
-        <item name="android:background">@drawable/button_style</item>
-    </style>
     <style name="CornersForCardview">
         <item name="cardCornerRadius">20dp</item>
-        <item name="contentPaddingBottom">2dp</item>
-        <item name="contentPaddingTop">2dp</item>
-        <item name="contentPaddingLeft">2dp</item>
-        <item name="contentPaddingRight">2dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+    <style name="grad">
+        <item name="cardCornerRadius">20dp</item>
     </style>
     <style name="CornersForView">
         <item name="android:background">@drawable/view_border</item>
