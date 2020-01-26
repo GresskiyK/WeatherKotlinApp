@@ -90,7 +90,7 @@
         app:layout_constraintStart_toEndOf="@+id/view1"
         app:layout_constraintTop_toTopOf="@+id/view1"
         tools:ignore="RtlCompat"
-        tools:text="BROKEN CLOUDS" />
+        tools:text="CLOUDS" />
 
     <TextView
         android:id="@+id/textViewDegrees"

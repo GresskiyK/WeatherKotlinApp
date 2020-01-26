@@ -64,7 +64,7 @@ internal class WeekForecastAdapter(private val listofItems: List<ItemOfWeekRecyc
             dayOfWeek.text = strs[2] +"."+ strs[1]
             minDegrees.text=items.minDegrees
 
-            maxDegrees.text=items.maxDegrees+"\u00B0"
+            maxDegrees.text=items.maxDegrees
         }
 
     }

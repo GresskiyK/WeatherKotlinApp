@@ -9,7 +9,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface QueryForAPI {
-    @GET("data/2.5/weather?")
+    @GET("data/2.5/weather")
     fun getCurrentWeatherData(
         @Query("lat") lat: String,
         @Query("lon") lon:String,

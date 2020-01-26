@@ -1,5 +1,6 @@
 package com.example.weatherkotlinapp.Fragments
 
+import android.annotation.SuppressLint
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.*
@@ -10,8 +11,10 @@ import com.example.weatherkotlinapp.Callbacks.Callbacks
 import com.example.weatherkotlinapp.ProgressBar
 import com.example.weatherkotlinapp.Queries.QueriesForApi
 import com.example.weatherkotlinapp.R
+import com.example.weatherkotlinapp.WeatherResponse.WeatherResponse
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 
 class SecondFragment : Fragment() {
@@ -71,21 +74,17 @@ class SecondFragment : Fragment() {
         textViewTitle.text = city
     }
 
-    private fun callbackForDaily(): Callbacks {
-        return object : Callbacks {
-            override fun completeDailyForecast(
-                description: String,
-                mainName: String,
-                humidity: String,
-                degrees: String,
-                wind: String
-            ) {
-                ProgressBar.disable(progressBar)
-                textViewWeatherDescription.text = description
-                textViewDegrees.text = degrees
-                textViewHumidity.text = humidity
-                textViewWind.text = wind
-                when (mainName) {
+    private fun callbackForDaily():Callbacks{
+        return object:Callbacks{
+            @SuppressLint("SetTextI18n")
+            override fun completeDailyForecast(weatherResponse: WeatherResponse?) {
+                if(weatherResponse!=null){
+                    ProgressBar.disable(progressBar)
+                    textViewWeatherDescription.text= weatherResponse.weather[0].description?.toUpperCase()
+                    textViewHumidity.text= (weatherResponse.main?.humidity)?.roundToInt().toString()+"%"
+                    textViewDegrees.text="${(weatherResponse.main?.temp!!).roundToInt()}"
+                    textViewWind.text=" ${weatherResponse.wind?.speed} M/S"
+                    when (weatherResponse.weather[0].mainName.toString()) {
                     "Clouds" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
                     "Clear" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clear_gradient)
                     "Mist" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
@@ -94,11 +93,45 @@ class SecondFragment : Fragment() {
                     "Drizzle"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
                     else -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.gradient)
                 }
-                getCity()
-                setTimeDescription()
+                    getCity()
+                    setTimeDescription()
+                }else{
+                    QueriesForApi().getData(callbackForDaily())
+                }
             }
         }
+
     }
+
+
+//    private fun callbackForDaily(): Callbacks {
+//        return object : Callbacks {
+//            override fun completeDailyForecast(
+//                description: String,
+//                mainName: String,
+//                humidity: String,
+//                degrees: String,
+//                wind: String
+//            ) {
+//                ProgressBar.disable(progressBar)
+//                textViewWeatherDescription.text = description
+//                textViewDegrees.text = degrees
+//                textViewHumidity.text = humidity
+//                textViewWind.text = wind
+//                when (mainName) {
+//                    "Clouds" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+//                    "Clear" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clear_gradient)
+//                    "Mist" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+//                    "Fog" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+//                    "Rain" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.light_rain_gradient)
+//                    "Drizzle"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+//                    else -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.gradient)
+//                }
+//                getCity()
+//                setTimeDescription()
+//            }
+//        }
+//    }
 
     private fun callbackForCity(): Callbacks {
         return object : Callbacks {

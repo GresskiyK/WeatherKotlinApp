@@ -43,20 +43,14 @@ class QueriesForApi {
                 call: Call<WeatherResponse>,
                 response: Response<WeatherResponse>
             ) {
-                val weatherResponse = response.body()
-                callback.completeDailyForecast(
-                    "${weatherResponse?.weather!![0].description?.toUpperCase()}",
-                    "${weatherResponse.weather[0].mainName}",
-                    "${(weatherResponse.main?.humidity!!).roundToInt()}%",
-                    "${(weatherResponse.main?.temp!!).roundToInt()}",
-                    " ${weatherResponse.wind?.speed} M/S"
-                )
-                Log.i("asd", weatherResponse.weather[0].mainName)
+                val weatherResponse=response.body()
+                callback.completeDailyForecast(weatherResponse)
             }
 
             override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
-                Log.i("error", t.message)
+                Log.i("errormess", t.message)
             }
+
         })
     }
 
@@ -81,14 +75,13 @@ class QueriesForApi {
                 call: Call<List<IdOfCity>>,
                 response: Response<List<IdOfCity>>
             ) {
-                val weatherResponse: List<IdOfCity> = response.body()!!
-                cityId = weatherResponse[0].id.toString()
+                val weatherResponse = response.body()
+                cityId = weatherResponse?.get(0)?.id.toString()
                 callback.completeWoeid(cityId)
-                Log.i("tager", "result:" + weatherResponse[0].id)
             }
 
             override fun onFailure(call: Call<List<IdOfCity>>, t: Throwable) {
-                Log.i("error", t.message)
+                Log.i("errormess", t.message)
             }
         })
     }
@@ -103,15 +96,16 @@ class QueriesForApi {
                 response: Response<WeatherWeekResponse>
             ) {
                 val weatherResponse = response.body()
-                if(flag) {
-                    for (i in 1..5) {
+                if(flag&& weatherResponse!=null) {
+
+                    for (i in 1 until (weatherResponse.weatherList.size)) {
                         items.add(
                             ItemOfWeekRecycler(
-                                weatherResponse?.weatherList?.get(i)?.iconType.toString(),
-                                weatherResponse?.weatherList?.get(i)?.date.toString(),
-                                (weatherResponse?.weatherList?.get(i)?.minTemp?.roundToInt()).toString(),
-                                (weatherResponse?.weatherList?.get(i)?.maxTemp?.roundToInt()).toString(),
-                                weatherResponse?.weatherList?.get(i)?.description.toString()
+                                weatherResponse.weatherList[i].iconType.toString(),
+                                weatherResponse.weatherList[i].date.toString(),
+                                (weatherResponse.weatherList[i].minTemp.roundToInt()).toString(),
+                                (weatherResponse.weatherList[i].maxTemp.roundToInt()).toString(),
+                                weatherResponse.weatherList[i].description.toString()
                             )
                         )
                     }
@@ -121,7 +115,7 @@ class QueriesForApi {
             }
 
             override fun onFailure(call: Call<WeatherWeekResponse>, t: Throwable) {
-                Log.i("error", t.message)
+                Log.i("errormess", t.message)
             }
         })
     }
