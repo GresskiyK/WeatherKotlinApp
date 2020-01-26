@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/clouds_gradient">
+    android:background="@drawable/clouds_gradient"
+    android:orientation="vertical">
 
 
     <TextView
@@ -21,6 +21,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:indeterminateDrawable="@drawable/style_for_progress_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/rvWeekForecast"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rvWeekForecast" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWeekForecast"

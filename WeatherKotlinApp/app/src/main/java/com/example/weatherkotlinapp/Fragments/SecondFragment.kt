@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.weatherkotlinapp.Callbacks.Callbacks
+import com.example.weatherkotlinapp.ProgressBar
 import com.example.weatherkotlinapp.Queries.QueriesForApi
 import com.example.weatherkotlinapp.R
 import java.text.SimpleDateFormat
@@ -23,6 +24,7 @@ class SecondFragment : Fragment() {
     private lateinit var textViewTimeOfDay: TextView
     private lateinit var constraintLayoutSecondFragment: ConstraintLayout
     private lateinit var window: Window
+    private lateinit var progressBar: android.widget.ProgressBar
 
 
     override fun onCreateView(
@@ -40,11 +42,13 @@ class SecondFragment : Fragment() {
         textViewWind.setCompoundDrawablesWithIntrinsicBounds(R.drawable.wind_icon, 0, 0, 0)
         textViewTimeOfDay = view.findViewById(R.id.textViewTimeOfDay)
         constraintLayoutSecondFragment = view.findViewById(R.id.constraintOfSecondFragment)
+        progressBar=view.findViewById(R.id.progressBar)
         window = activity!!.window
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
+        ProgressBar.visible(progressBar)
         QueriesForApi().getData(callbackForDaily())
         return view
     }
@@ -76,13 +80,13 @@ class SecondFragment : Fragment() {
                 degrees: String,
                 wind: String
             ) {
+                ProgressBar.disable(progressBar)
                 textViewWeatherDescription.text = description
                 textViewDegrees.text = degrees
                 textViewHumidity.text = humidity
                 textViewWind.text = wind
                 when (mainName) {
                     "Clouds" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-
                     "Clear" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clear_gradient)
                     "Mist" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
                     "Fog" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)

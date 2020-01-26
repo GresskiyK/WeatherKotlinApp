@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherkotlinapp.Adapters.WeekForecastAdapter
 import com.example.weatherkotlinapp.Callbacks.Callbacks
 import com.example.weatherkotlinapp.ItemsOfRecyclers.ItemOfWeekRecycler
+import com.example.weatherkotlinapp.ProgressBar
 import com.example.weatherkotlinapp.Queries.QueriesForApi
 import com.example.weatherkotlinapp.R
 
 class FirstFragment : Fragment() {
     private lateinit var rvTest: RecyclerView
+    private lateinit var progressBar: android.widget.ProgressBar
 
 
     override fun onCreateView(
@@ -24,6 +26,8 @@ class FirstFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.first_fragment, container, false)
         rvTest = view.findViewById(R.id.rvWeekForecast) as RecyclerView
+        progressBar=view.findViewById(R.id.progressBar)
+        ProgressBar.visible(progressBar)
         QueriesForApi().getWoeidOfCity(callbackForWoeid())
         return view
     }
@@ -32,6 +36,7 @@ class FirstFragment : Fragment() {
         return object : Callbacks {
             override fun completeWeekForecast(days: ArrayList<ItemOfWeekRecycler>) {
                 items = days
+                ProgressBar.disable(progressBar)
                 setupForRecycler()
             }
         }
