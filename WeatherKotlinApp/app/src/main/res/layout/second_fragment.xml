@@ -15,7 +15,7 @@
         android:layout_marginTop="50dp"
         android:fontFamily="@font/font2"
         android:textColor="@color/white"
-        android:textSize="45dp"
+        android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

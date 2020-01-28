@@ -18,7 +18,6 @@ import kotlin.math.roundToInt
 
 
 class SecondFragment : Fragment() {
-    private lateinit var geocoder: Geocoder
     private lateinit var textViewTitle: TextView
     private lateinit var textViewDegrees: TextView
     private lateinit var textViewHumidity: TextView
@@ -59,51 +58,22 @@ class SecondFragment : Fragment() {
             in 17..22 -> textViewTimeOfDay.text = "EVENING"
         }
     }
-
-    private fun getCity() {
-        geocoder = Geocoder(context, Locale.getDefault())
-        val address =
-            geocoder.getFromLocation(QueriesForApi.lat.toDouble(), QueriesForApi.lon.toDouble(), 1)
-        val city = address[0].locality
-        textViewTitle.text = city
+    private fun dynamicBackGround(mainName:String){
+        when (mainName) {
+            "Clouds" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+            "Clear" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clear_gradient)
+            "Mist" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+            "Fog" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+            "Rain" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.light_rain_gradient)
+            "Drizzle"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+            else -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.gradient)
+        }
     }
-
-//    private fun callbackForDaily(): Callbacks {
-//        return object : Callbacks {
-//            override fun completeDailyForecast(weatherResponse: WeatherResponse?) {
-//                if (weatherResponse != null) {
-//                    ProgressBar.disable(progressBar)
-//                    textViewWeatherDescription.text =
-//                        weatherResponse.weather[0].description?.toUpperCase()
-//                    textViewHumidity.text =
-//                        (weatherResponse.main?.humidity)?.roundToInt().toString() + "%"
-//                    textViewDegrees.text = "${(weatherResponse.main?.temp!!).roundToInt()}"
-//                    textViewWind.text = " ${weatherResponse.wind?.speed} M/S"
-//                    getCity()
-//                    setTimeDescription()
-//                    when (weatherResponse.weather[0].mainName.toString()) {
-//                        "Clouds" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-//                        "Clear" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clear_gradient)
-//                        "Snow" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.snow_gradient)
-//                        "Mist" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-//                        "Fog" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-//                        "Rain" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.light_rain_gradient)
-//                        "Drizzle" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.light_rain_gradient)
-//                        else -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.gradient)
-//                    }
-//
-//                }
-//            }
-//        }
-//
-//    }
-
 
         private fun callbackForDaily(): Callbacks {
         return object : Callbacks {
             override fun completeDailyForecast(
                 description: String,
-                mainName: String,
                 humidity: String,
                 degrees: String,
                 wind: String
@@ -113,25 +83,9 @@ class SecondFragment : Fragment() {
                 textViewDegrees.text = degrees
                 textViewHumidity.text = humidity
                 textViewWind.text = wind
-                when (mainName) {
-                    "Clouds" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-                    "Clear" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clear_gradient)
-                    "Mist" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-                    "Fog" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-                    "Rain" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.light_rain_gradient)
-                    "Drizzle"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
-                    else -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.gradient)
-                }
-                getCity()
+                textViewTitle.text=QueriesForApi.city
+                dynamicBackGround(QueriesForApi.mainName)
                 setTimeDescription()
-            }
-        }
-    }
-
-    private fun callbackForCity(): Callbacks {
-        return object : Callbacks {
-            override fun completeNameOfCity(name: String) {
-                textViewTitle.text = name
             }
         }
     }

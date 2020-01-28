@@ -1,12 +1,15 @@
 package com.example.weatherkotlinapp.Queries
 
+import android.location.Geocoder
 import android.location.Location
 import android.util.Log
 import com.example.weatherkotlinapp.Callbacks.Callbacks
+import com.example.weatherkotlinapp.Fragments.SecondFragment
 import com.example.weatherkotlinapp.ItemsOfRecyclers.ItemOfWeekRecycler
 import com.example.weatherkotlinapp.MainScreen
 import com.example.weatherkotlinapp.Retrofit.RetrofitClass
 import com.example.weatherkotlinapp.WeatherResponse.IdOfCity
+import com.example.weatherkotlinapp.WeatherResponse.Main
 import com.example.weatherkotlinapp.WeatherResponse.WeatherResponse
 import com.example.weatherkotlinapp.WeatherResponse.WeatherWeekResponse
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -23,12 +26,14 @@ class QueriesForApi {
         var lon = ""
         var items = ArrayList<ItemOfWeekRecycler>()
         var cityId = ""
-        var AppId = "b6907d289e10d714a6e88b30761fae22"
+        var AppId = "b6907d289e10d714a6e88b30761fae22"//ba99355746555ac126cd7b797cdad4e7
         var lattlong: String = ""
+        var city = ""
+        var mainName = ""
     }
 
     fun getData(callback: Callbacks) {
-        val retrofit= RetrofitClass().retrofitForDaily()
+        val retrofit = RetrofitClass().retrofitForDaily()
         val queryForData = retrofit.create(
             QueryForAPI::class.java
         )
@@ -43,10 +48,10 @@ class QueriesForApi {
                 response: Response<WeatherResponse>
             ) {
                 val weatherResponse = response.body()
-                if(weatherResponse!=null){
+                if (weatherResponse != null) {
+                    mainName = "${weatherResponse.weather[0].mainName}"
                     callback.completeDailyForecast(
                         "${weatherResponse.weather[0].description?.toUpperCase()}",
-                        "${weatherResponse.weather[0].mainName}",
                         "${(weatherResponse.main?.humidity!!).roundToInt()}%",
                         "${(weatherResponse.main?.temp!!).roundToInt()}",
                         " ${weatherResponse.wind?.speed} M/S"
@@ -61,6 +66,13 @@ class QueriesForApi {
         })
     }
 
+    private fun getCity(view: MainScreen) {
+        val geocoder = Geocoder(view, Locale.ENGLISH)
+        val address =
+            geocoder.getFromLocation(lat.toDouble(), lon.toDouble(), 1)
+        city = address[0].locality.toUpperCase()
+    }
+
     fun getLocation(view: MainScreen) {
         val fusedLocationClient: FusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(view)
@@ -69,6 +81,7 @@ class QueriesForApi {
                 lattlong = location?.latitude!!.toString() + "," + location.longitude.toString()
                 lat = location.latitude.toString()
                 lon = location.longitude.toString()
+                getCity(view)
                 view.setupOfViewPager()
             }
     }
@@ -103,7 +116,7 @@ class QueriesForApi {
                 response: Response<WeatherWeekResponse>
             ) {
                 val weatherResponse = response.body()
-                if(weatherResponse!=null) {
+                if (weatherResponse != null) {
                     for (i in 1 until (weatherResponse.weatherList.size)) {
                         items.add(
                             ItemOfWeekRecycler(
