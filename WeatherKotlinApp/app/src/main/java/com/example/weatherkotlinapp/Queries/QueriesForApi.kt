@@ -25,7 +25,6 @@ class QueriesForApi {
         var cityId = ""
         var AppId = "b6907d289e10d714a6e88b30761fae22"
         var lattlong: String = ""
-        var flag=true
     }
 
     fun getData(callback: Callbacks) {
@@ -43,8 +42,16 @@ class QueriesForApi {
                 call: Call<WeatherResponse>,
                 response: Response<WeatherResponse>
             ) {
-                val weatherResponse=response.body()
-                callback.completeDailyForecast(weatherResponse)
+                val weatherResponse = response.body()
+                if(weatherResponse!=null){
+                    callback.completeDailyForecast(
+                        "${weatherResponse.weather[0].description?.toUpperCase()}",
+                        "${weatherResponse.weather[0].mainName}",
+                        "${(weatherResponse.main?.humidity!!).roundToInt()}%",
+                        "${(weatherResponse.main?.temp!!).roundToInt()}",
+                        " ${weatherResponse.wind?.speed} M/S"
+                    )
+                }
             }
 
             override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
@@ -96,8 +103,7 @@ class QueriesForApi {
                 response: Response<WeatherWeekResponse>
             ) {
                 val weatherResponse = response.body()
-                if(flag&& weatherResponse!=null) {
-
+                if(weatherResponse!=null) {
                     for (i in 1 until (weatherResponse.weatherList.size)) {
                         items.add(
                             ItemOfWeekRecycler(
@@ -110,7 +116,6 @@ class QueriesForApi {
                         )
                     }
                 }
-                flag=false
                 callback.completeWeekForecast(items)
             }
 

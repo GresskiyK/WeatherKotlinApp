@@ -28,7 +28,14 @@ class FirstFragment : Fragment() {
         rvTest = view.findViewById(R.id.rvWeekForecast) as RecyclerView
         progressBar=view.findViewById(R.id.progressBar)
         ProgressBar.visible(progressBar)
-        QueriesForApi().getWoeidOfCity(callbackForWoeid())
+        if(items.isNotEmpty()){
+            items.clear()
+            QueriesForApi().getWoeidOfCity(callbackForWoeid())
+        }
+        else{
+            QueriesForApi().getWoeidOfCity(callbackForWoeid())
+        }
+
         return view
     }
 
@@ -36,11 +43,12 @@ class FirstFragment : Fragment() {
         return object : Callbacks {
             override fun completeWeekForecast(days: ArrayList<ItemOfWeekRecycler>) {
                 items = days
-                ProgressBar.disable(progressBar)
                 setupForRecycler()
+                ProgressBar.disable(progressBar)
             }
         }
     }
+
 
     private fun callbackForWoeid(): Callbacks {
         return object : Callbacks {
@@ -55,6 +63,8 @@ class FirstFragment : Fragment() {
         rvTest.layoutManager = LinearLayoutManager(activity)
         rvTest.adapter = myAdapter
     }
+
+
 
     companion object {
         var items = ArrayList<ItemOfWeekRecycler>()

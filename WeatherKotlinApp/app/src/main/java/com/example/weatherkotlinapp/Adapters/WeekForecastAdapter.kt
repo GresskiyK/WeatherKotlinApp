@@ -9,6 +9,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherkotlinapp.ItemsOfRecyclers.ItemOfWeekRecycler
 import com.example.weatherkotlinapp.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 internal class WeekForecastAdapter(private val listofItems: List<ItemOfWeekRecycler>) : RecyclerView.Adapter<WeekForecastAdapter.ViewHolder>() {
 
@@ -59,11 +61,15 @@ internal class WeekForecastAdapter(private val listofItems: List<ItemOfWeekRecyc
                     icon.setImageResource(R.drawable.default_dots)
                 }
             }
-            val strs=items.date.split("-")
+            val date=items.date
+            val formatForData = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date)
+            val formatForName= SimpleDateFormat("EEEE", Locale.ENGLISH)
+            val formatForDate= SimpleDateFormat("dd", Locale.ENGLISH)
+            val formatForMonth= SimpleDateFormat("MMM",Locale.ENGLISH)
+            var nameOFDay=formatForName.format((formatForData))+", "+formatForMonth.format(formatForData)+" "+formatForDate.format(formatForData)
             description.text=items.description
-            dayOfWeek.text = strs[2] +"."+ strs[1]
+            dayOfWeek.text = nameOFDay
             minDegrees.text=items.minDegrees
-
             maxDegrees.text=items.maxDegrees
         }
 
