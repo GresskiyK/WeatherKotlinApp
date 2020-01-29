@@ -22,15 +22,9 @@ class ThirdFragment:Fragment() {
             ItemOfCountriesRecycler("London", "3"),
             ItemOfCountriesRecycler("Berlin", "0"),
             ItemOfCountriesRecycler("Moscow", "2"),
-            ItemOfCountriesRecycler(
-                "Amsterdam",
-                "-3"
-            ),
+            ItemOfCountriesRecycler("Amsterdam", "-3"),
             ItemOfCountriesRecycler("Paris", "-1"),
-            ItemOfCountriesRecycler(
-                "San Francisco",
-                "2"
-            )
+            ItemOfCountriesRecycler("San Francisco", "2")
         )
         val myAdapter = CountriesWeatherAdapter(items)
         val rv=view.findViewById(R.id.rvForCities) as RecyclerView

@@ -11,9 +11,6 @@
         <item name="cardCornerRadius">20dp</item>
         <item name="cardElevation">4dp</item>
     </style>
-    <style name="grad">
-        <item name="cardCornerRadius">20dp</item>
-    </style>
     <style name="CornersForView">
         <item name="android:background">@drawable/view_border</item>
     </style>
