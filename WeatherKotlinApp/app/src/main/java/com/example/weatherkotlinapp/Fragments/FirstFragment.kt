@@ -20,8 +20,6 @@ class FirstFragment : Fragment() {
     private lateinit var progressBar: android.widget.ProgressBar
     private lateinit var constraintLayoutFirstFragment: ConstraintLayout
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,27 +27,31 @@ class FirstFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.first_fragment, container, false)
         rvTest = view.findViewById(R.id.rvWeekForecast) as RecyclerView
-        progressBar=view.findViewById(R.id.progressBar)
+        progressBar = view.findViewById(R.id.progressBar)
         constraintLayoutFirstFragment = view.findViewById(R.id.constraintOfFirstFragment)
         ProgressBar.visible(progressBar)
-        if(items.isNotEmpty()){
-            items.clear()
-            QueriesForApi().getWoeidOfCity(callbackForWoeid())
-        }
-        else{
-            QueriesForApi().getWoeidOfCity(callbackForWoeid())
-        }
-
+        itemsCheck()
         return view
     }
-    private fun dynamicBackGround(mainName:String){
+
+    private fun itemsCheck() {
+        if (items.isNotEmpty()) {
+            items.clear()
+            QueriesForApi().getWoeidOfCity(callbackForWoeid())
+        } else {
+            QueriesForApi().getWoeidOfCity(callbackForWoeid())
+        }
+    }
+
+    private fun dynamicBackGround(mainName: String) {
         when (mainName) {
             "Clouds" -> constraintLayoutFirstFragment.setBackgroundResource(R.drawable.clouds_gradient)
             "Clear" -> constraintLayoutFirstFragment.setBackgroundResource(R.drawable.clear_gradient)
             "Mist" -> constraintLayoutFirstFragment.setBackgroundResource(R.drawable.clouds_gradient)
             "Fog" -> constraintLayoutFirstFragment.setBackgroundResource(R.drawable.clouds_gradient)
+            "Snow" -> constraintLayoutFirstFragment.setBackgroundResource(R.drawable.snow_gradient)
             "Rain" -> constraintLayoutFirstFragment.setBackgroundResource(R.drawable.light_rain_gradient)
-            "Drizzle"->constraintLayoutFirstFragment.setBackgroundResource(R.drawable.clouds_gradient)
+            "Drizzle" -> constraintLayoutFirstFragment.setBackgroundResource(R.drawable.clouds_gradient)
             else -> constraintLayoutFirstFragment.setBackgroundResource(R.drawable.gradient)
         }
     }
@@ -60,7 +62,6 @@ class FirstFragment : Fragment() {
                 items = days
                 setupForRecycler()
                 dynamicBackGround(QueriesForApi.mainName)
-
                 ProgressBar.disable(progressBar)
             }
         }
@@ -80,7 +81,6 @@ class FirstFragment : Fragment() {
         rvTest.layoutManager = LinearLayoutManager(activity)
         rvTest.adapter = myAdapter
     }
-
 
 
     companion object {

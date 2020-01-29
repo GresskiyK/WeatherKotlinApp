@@ -58,19 +58,21 @@ class SecondFragment : Fragment() {
             in 17..22 -> textViewTimeOfDay.text = "EVENING"
         }
     }
-    private fun dynamicBackGround(mainName:String){
+
+    private fun dynamicBackGround(mainName: String) {
         when (mainName) {
             "Clouds" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
             "Clear" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clear_gradient)
             "Mist" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
             "Fog" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+            "Snow" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.snow_gradient)
             "Rain" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.light_rain_gradient)
-            "Drizzle"->constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
+            "Drizzle" -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.clouds_gradient)
             else -> constraintLayoutSecondFragment.setBackgroundResource(R.drawable.gradient)
         }
     }
 
-        private fun callbackForDaily(): Callbacks {
+    private fun callbackForDaily(): Callbacks {
         return object : Callbacks {
             override fun completeDailyForecast(
                 description: String,
@@ -83,7 +85,7 @@ class SecondFragment : Fragment() {
                 textViewDegrees.text = degrees
                 textViewHumidity.text = humidity
                 textViewWind.text = wind
-                textViewTitle.text=QueriesForApi.city
+                textViewTitle.text = QueriesForApi.city
                 dynamicBackGround(QueriesForApi.mainName)
                 setTimeDescription()
             }
