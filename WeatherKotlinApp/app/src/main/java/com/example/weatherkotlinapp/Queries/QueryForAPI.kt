@@ -16,11 +16,11 @@ interface QueryForAPI {
         @Query("appid") app_id: String
     ): Call<WeatherResponse>
     @GET("/api/location/search/?")
-    fun getWoeid(
+    suspend fun getWoeid(
         @Query("lattlong") lattlong: String
-    ): Call<List<IdOfCity>>
+    ): List<IdOfCity>
     @GET("/api/location/{woeid}/")
-    fun getWeather(
+    suspend fun getWeather(
         @Path("woeid") id:String
-    ): Call<WeatherWeekResponse>
+    ): WeatherWeekResponse
 }

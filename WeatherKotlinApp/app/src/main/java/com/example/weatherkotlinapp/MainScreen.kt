@@ -40,27 +40,13 @@ import kotlin.math.roundToInt
 class MainScreen : AppCompatActivity() {
 
     private lateinit var dotsLayout: LinearLayout
-    private var layouts =
-        arrayOf(R.layout.first_fragment, R.layout.second_fragment, R.layout.third_fragment)
+    private var layouts = arrayOf(R.layout.first_fragment, R.layout.second_fragment, R.layout.third_fragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
-        val window = this.window
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                0
-            )
-        }
+        setInvisiblStatusBar()
+        requestDialog()
         onRequestPermissionsResult(
             0,
             arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
@@ -74,6 +60,27 @@ class MainScreen : AppCompatActivity() {
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
+    }
+
+
+    private fun setInvisiblStatusBar(){
+        val window = this.window
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+    }
+
+    private fun requestDialog(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                0
+            )
+        }
     }
 
     override fun onRequestPermissionsResult(
