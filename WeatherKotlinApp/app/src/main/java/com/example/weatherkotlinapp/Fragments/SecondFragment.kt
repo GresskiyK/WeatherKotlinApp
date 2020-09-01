@@ -45,7 +45,7 @@ class SecondFragment : Fragment() {
         constraintLayoutSecondFragment = view.findViewById(R.id.constraintOfSecondFragment)
         progressBar = view.findViewById(R.id.progressBar)
         ProgressBar.visible(progressBar)
-        QueriesForApi().getData(callbackForDaily())
+        QueriesForApi().getDaily(callbackForDaily())
         return view
     }
 

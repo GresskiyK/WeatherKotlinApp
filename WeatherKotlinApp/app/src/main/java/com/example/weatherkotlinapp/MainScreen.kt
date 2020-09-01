@@ -4,13 +4,11 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
-import android.location.Location
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -20,21 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager.widget.ViewPager
 import com.example.weatherkotlinapp.Adapters.PagerAdapter
-import com.example.weatherkotlinapp.Fragments.FirstFragment
-import com.example.weatherkotlinapp.Fragments.SecondFragment
-import com.example.weatherkotlinapp.ItemsOfRecyclers.ItemOfWeekRecycler
 import com.example.weatherkotlinapp.Queries.QueriesForApi
-import com.example.weatherkotlinapp.Queries.QueryForAPI
-import com.example.weatherkotlinapp.WeatherResponse.IdOfCity
-import com.example.weatherkotlinapp.WeatherResponse.WeatherWeekResponse
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.math.roundToInt
 
 
 class MainScreen : AppCompatActivity() {
@@ -45,8 +29,8 @@ class MainScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
-        setInvisiblStatusBar()
-        requestDialog()
+        setInvisibleStatusBar()
+        checkPermissions()
         onRequestPermissionsResult(
             0,
             arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
@@ -63,7 +47,7 @@ class MainScreen : AppCompatActivity() {
     }
 
 
-    private fun setInvisiblStatusBar(){
+    private fun setInvisibleStatusBar(){
         val window = this.window
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -71,17 +55,34 @@ class MainScreen : AppCompatActivity() {
         )
     }
 
-    private fun requestDialog(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
+
+
+    private fun checkPermissions() {
+        if (!checkInternet(this)) {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Internet connection")
+                .setMessage("Please check Internet connection.")
+                .setCancelable(false)
+                .setNegativeButton(
+                    "ОК"
+                ) { _, _ -> this.finish() }
+            val alert = builder.create()
+            alert.show()
+        }else if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED) {
+
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                 0
             )
+        } else {
+            QueriesForApi().getLocation(this)
         }
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -92,25 +93,16 @@ class MainScreen : AppCompatActivity() {
         when (requestCode) {
             0 -> {
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("Notification")
+                    val alertDialog = AlertDialog.Builder(this)
+                    alertDialog.setTitle("Notification")
                         .setMessage("Please accept location permission to continue.")
                         .setCancelable(false)
-                        .setNegativeButton(
+                        .setPositiveButton(
                             "ОК"
                         ) { _, _ -> this.finish() }
-                    val alert = builder.create()
-                    alert.show()
-                } else if (!checkInternet(this)) {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("Internet connection")
-                        .setMessage("Please check Internet connection.")
-                        .setCancelable(false)
-                        .setNegativeButton(
-                            "ОК"
-                        ) { _, _ -> this.finish() }
-                    val alert = builder.create()
-                    alert.show()
+                    alertDialog.create()
+                    alertDialog.show()
+
                 } else {
                     QueriesForApi().getLocation(this)
                 }
@@ -171,7 +163,7 @@ class MainScreen : AppCompatActivity() {
     private fun setCurrentIndicator(index: Int) {
         val childCount = dotsLayout.childCount
         for (i in 0 until childCount) {
-            val imageView = dotsLayout.get(i) as ImageView
+            val imageView = dotsLayout[i] as ImageView
             if (i == index) {
                 imageView.setImageDrawable(
                     ContextCompat.getDrawable(
