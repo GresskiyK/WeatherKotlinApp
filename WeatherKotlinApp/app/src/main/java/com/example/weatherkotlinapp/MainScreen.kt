@@ -111,6 +111,7 @@ class MainScreen : AppCompatActivity() {
     }
 
     fun setupOfViewPager() {
+
         val vp = findViewById<ViewPager>(R.id.viewpager)
         val fragmentAdapter =
             PagerAdapter(supportFragmentManager)
@@ -133,7 +134,7 @@ class MainScreen : AppCompatActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                setCurrentIndicator(position)
+                //setCurrentIndicator(position)
             }
         })
     }
@@ -162,6 +163,7 @@ class MainScreen : AppCompatActivity() {
 
     private fun setCurrentIndicator(index: Int) {
         val childCount = dotsLayout.childCount
+
         for (i in 0 until childCount) {
             val imageView = dotsLayout[i] as ImageView
             if (i == index) {

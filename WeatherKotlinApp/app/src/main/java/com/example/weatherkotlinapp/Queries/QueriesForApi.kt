@@ -92,6 +92,7 @@ class QueriesForApi {
                     lon = location.longitude.toString()
                     getCity(view)
                     view.setupOfViewPager()
+
                 }
         }
 
