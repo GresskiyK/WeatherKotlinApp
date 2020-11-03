@@ -47,6 +47,7 @@ class QueriesForApi {
             AppId
         )
         call.enqueue(object : Callback<WeatherResponse> {
+
             override fun onResponse(
                 call: Call<WeatherResponse>,
                 response: Response<WeatherResponse>
@@ -64,8 +65,16 @@ class QueriesForApi {
             }
 
             override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
+
+//                if(t instanceof NoConnectivityException) {
+//                    // show No Connectivity message to user or do whatever you want.
+//                }
+
                 Log.i("errormess", t.message)
+
             }
+
+
 
         })
     }

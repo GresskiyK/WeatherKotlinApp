@@ -8,6 +8,7 @@ import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.WindowManager
 import android.widget.ImageView
@@ -29,13 +30,8 @@ class MainScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
-        setInvisibleStatusBar()
+        setInvisibleBars()
         checkPermissions()
-        onRequestPermissionsResult(
-            0,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-            intArrayOf(PackageManager.PERMISSION_GRANTED)
-        )
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
@@ -47,12 +43,15 @@ class MainScreen : AppCompatActivity() {
     }
 
 
-    private fun setInvisibleStatusBar(){
+    private fun setInvisibleBars(){
         val window = this.window
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
+        window.decorView.apply {
+            systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION  or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        }
     }
 
 
@@ -70,9 +69,14 @@ class MainScreen : AppCompatActivity() {
             alert.show()
         }else if (ActivityCompat.checkSelfPermission(
                 this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
+// Инитается колбэк на результат запроса на локацию
+            onRequestPermissionsResult(
+                0,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                intArrayOf(PackageManager.PERMISSION_GRANTED)
+            )
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
@@ -97,9 +101,7 @@ class MainScreen : AppCompatActivity() {
                     alertDialog.setTitle("Notification")
                         .setMessage("Please accept location permission to continue.")
                         .setCancelable(false)
-                        .setPositiveButton(
-                            "ОК"
-                        ) { _, _ -> this.finish() }
+                        .setPositiveButton("ОК") { _, _ -> this.finish() }
                     alertDialog.create()
                     alertDialog.show()
 
@@ -111,7 +113,6 @@ class MainScreen : AppCompatActivity() {
     }
 
     fun setupOfViewPager() {
-
         val vp = findViewById<ViewPager>(R.id.viewpager)
         val fragmentAdapter =
             PagerAdapter(supportFragmentManager)
@@ -134,13 +135,14 @@ class MainScreen : AppCompatActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                //setCurrentIndicator(position)
+                setCurrentIndicator(position)
             }
         })
     }
 
     private fun createDots() {
         val indicators = arrayOfNulls<ImageView>(layouts.size)
+
         val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
             WRAP_CONTENT,
             WRAP_CONTENT
@@ -163,7 +165,6 @@ class MainScreen : AppCompatActivity() {
 
     private fun setCurrentIndicator(index: Int) {
         val childCount = dotsLayout.childCount
-
         for (i in 0 until childCount) {
             val imageView = dotsLayout[i] as ImageView
             if (i == index) {
